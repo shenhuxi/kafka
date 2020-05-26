@@ -1,0 +1,35 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /mq
+    session:
+      timeout: 30
+spring:
+  kafka:
+    # 指定kafka 代理地址，可以多个
+    bootstrap-servers: 172.23.127.82:9092;172.23.127.82:9093;172.23.127.82:9094
+    #生产者
+    producer:
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      #默认:1 数据发送到Kafka后，经过leader成功接收消息的的确认，0 生产者将数据发送出去就不管了，不去等待任何返回。-1 producer需要等待ISR中的所有follower都确认接收到数据后才算一次发送完成，可靠性最高。
+      acks: -1
+      #当多个消息被发送到同一个分区时，在内存字节数默认为16384=16KB生产者会把它们一起处理。
+      batch-size: 16384
+      #生产者可用于缓冲等待发送给brokers消息的总内存字节数
+      buffer-memory: 33554432
+      #生产者对生成的所有数据使用的压缩类型，默认值是none（即不压缩），有效值为none，gzip(节省带宽)，snappy(节省时间、cpu)或lz4。
+      compression-type: snappy
+      #默认值为0，当设置为大于零的值，客户端会重新发送任何发送失败的消息。注意，此重试与客户端收到错误时重新发送消息是没有区别的
+      retries: 0
+      #用于标识发送消息的客户端，通常用于日志和性能指标以及配额。
+      client-id:  mq
+
+    #消费者
+    consumer:
+      group-id: program_A_consumer_group
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
