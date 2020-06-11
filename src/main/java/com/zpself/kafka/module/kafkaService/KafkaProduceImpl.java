@@ -1,4 +1,4 @@
-package com.zpself.kafka.kafkaService;
+package com.zpself.kafka.module.kafkaService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.Producer;

@@ -1,6 +1,6 @@
 package com.zpself.kafka.module.controller;
 
-import com.zpself.kafka.kafkaService.KafkaProduceImpl;
+import com.zpself.kafka.module.kafkaService.KafkaProduceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,6 @@ public class TestRocketMQSendController {
     public Object createKafkaMessage(String topic, String content) throws Exception {
         return kafkaProduceImpl.sendSyncMsg(topic,content);
     }
-
     @GetMapping("/createKafkaSendAsyncMsg")
     public boolean createKafkaMessageBatch(String topic,String content)throws Exception {
         kafkaProduceImpl.sendAsyncMsg(topic,content);

@@ -22,7 +22,7 @@ import java.util.Map;
  * @Modified By
  */
 @Component
-public class KafkaListener {
+public class KafkaConsumerConfig2 {
     @Value("${spring.kafka.bootstrap-servers}")
     private String innerServers;
     @Value("${spring.kafka.consumer.group-id}")
